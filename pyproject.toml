@@ -2,10 +2,12 @@
 name = "ml-playground"
 version = "0.1.0"
 description = "ML playground with monorepo setup"
+# Python 3.8-3.10 required for PyTorch 1.13.1 compatibility
 requires-python = ">=3.8,<3.11"
 dependencies = [
     "torch==1.13.1",
     "torchvision==0.14.1",
+    "numpy<2.0",
 ]
 
 [tool.uv]
