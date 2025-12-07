@@ -41,7 +41,15 @@ This project currently uses PyTorch 1.13.1 as specified in the project requireme
 ### For Production Use
 **⚠️ CRITICAL**: Do not use PyTorch 1.13.1 in production environments. Upgrade to PyTorch 2.6.0 or later.
 
-To upgrade:
+**Note on Compatibility**: This project includes mmpretrain and mmdetection as submodules, which have specific requirements:
+- **mmpretrain** requires: `mmcv>=2.0.0,<2.4.0` and `mmengine>=0.8.3,<1.0.0`
+- **mmdetection** requires: `mmcv>=2.0.0rc4,<2.2.0` and `mmengine>=0.7.1,<1.0.0`
+
+Before upgrading PyTorch, verify that the required mmcv and mmengine versions support the newer PyTorch version. You may need to:
+1. Update the submodules to newer versions that support PyTorch 2.6+
+2. Or fork the submodules and update their dependencies
+
+To upgrade (after verifying compatibility):
 ```bash
 # Update pyproject.toml dependencies to:
 dependencies = [
@@ -64,10 +72,22 @@ If you must use PyTorch 1.13.1 for compatibility reasons:
 
 When ready to upgrade to a secure version:
 
-1. Test compatibility with PyTorch 2.2.0+ first (minimum for basic security)
-2. Update mmpretrain and mmdetection submodules to versions compatible with newer PyTorch
-3. Adjust Python version requirement to support PyTorch 2.6.0+ (requires Python 3.8-3.12)
-4. Run comprehensive tests to ensure functionality is maintained
+1. **Check submodule compatibility**: Verify that mmpretrain and mmdetection work with PyTorch 2.6+
+   - Current mmpretrain requires `mmcv<2.4.0`
+   - Current mmdetection requires `mmcv<2.2.0`  
+   - Check if newer versions of these packages support PyTorch 2.6+
+   
+2. **Update submodules** (if needed):
+   ```bash
+   cd packages/mmpretrain && git pull origin main
+   cd ../mmdetection && git pull origin main
+   ```
+
+3. **Test compatibility** with PyTorch 2.2.0+ first (minimum for basic security)
+
+4. **Adjust Python version** requirement to support PyTorch 2.6.0+ (requires Python 3.9-3.12)
+
+5. **Run comprehensive tests** to ensure functionality is maintained with both PyTorch and the submodules
 
 ## Security Best Practices
 
