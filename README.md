@@ -2,6 +2,17 @@
 
 ML playground with monorepo setup using uv for dependency management.
 
+## ⚠️ Security Notice
+
+**This project uses PyTorch 1.13.1 which has known security vulnerabilities.**
+
+Please read [SECURITY.md](SECURITY.md) for details about:
+- Known vulnerabilities (heap overflow, use-after-free, RCE via torch.load)
+- Security recommendations
+- Migration path to secure versions
+
+**DO NOT use this configuration in production environments without addressing the security vulnerabilities.**
+
 ## Setup
 
 This project uses [uv](https://github.com/astral-sh/uv) for fast Python package management and is configured for Linux environments only.

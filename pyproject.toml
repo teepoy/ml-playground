@@ -5,6 +5,9 @@ description = "ML playground with monorepo setup"
 # Python 3.8-3.10 required for PyTorch 1.13.1 compatibility
 requires-python = ">=3.8,<3.11"
 dependencies = [
+    # WARNING: PyTorch 1.13.1 has known security vulnerabilities
+    # See SECURITY.md for details and mitigation strategies
+    # For production use, upgrade to torch>=2.6.0
     "torch==1.13.1",
     "torchvision==0.14.1",
     "numpy<2.0",
