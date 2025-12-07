@@ -13,6 +13,11 @@ Please read [SECURITY.md](SECURITY.md) for details about:
 
 **DO NOT use this configuration in production environments without addressing the security vulnerabilities.**
 
+### Tracking
+
+- 📋 **Issue Template**: See `.github/ISSUE_TEMPLATE/security-pytorch-upgrade.md` to create a tracking issue
+- 📝 **TODO**: See [TODO.md](TODO.md) for upgrade action items and blockers
+
 ## Setup
 
 This project uses [uv](https://github.com/astral-sh/uv) for fast Python package management and is configured for Linux environments only.
