@@ -33,7 +33,7 @@ This project currently uses PyTorch 1.13.1 as specified in the project requireme
 - **Severity**: High
 - **Affected versions**: <= 2.3.1
 - **Advisory Status**: Withdrawn
-- **Description**: PyTorch deserialization vulnerability (details withdrawn).
+- **Description**: This advisory has been withdrawn by the reporting organization. A withdrawn advisory typically means the vulnerability assessment was determined to be incorrect, a duplicate, or the issue was resolved through other means. However, general caution is still advised when deserializing PyTorch objects from untrusted sources.
 - **Mitigation**: Exercise caution when deserializing PyTorch objects from untrusted sources.
 
 ## Recommendations
