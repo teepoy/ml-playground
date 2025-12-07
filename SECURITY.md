@@ -1,8 +1,12 @@
 # Security Notice
 
-## Known Vulnerabilities in PyTorch 1.13.1
+## ✅ Security Status: RESOLVED
 
-This project currently uses PyTorch 1.13.1 as specified in the project requirements. However, this version has several known security vulnerabilities:
+This project has been **upgraded to PyTorch 2.9.1** which addresses all previously identified security vulnerabilities.
+
+## Previously Identified Vulnerabilities (Now Fixed)
+
+The project was originally set up with PyTorch 1.13.1 which had several known security vulnerabilities. These have been resolved by upgrading to PyTorch 2.9.1:
 
 ### 1. Heap Buffer Overflow Vulnerability
 - **Severity**: High

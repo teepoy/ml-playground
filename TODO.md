@@ -1,22 +1,27 @@
 # TODO List
 
-## 🚨 Critical Security Issue
+## ✅ Security Update Complete
 
-### Upgrade PyTorch 1.13.1 (HIGH PRIORITY)
+### PyTorch Upgrade (COMPLETED)
 
-**Status**: Pending  
-**Priority**: CRITICAL  
-**Blocked by**: Submodule compatibility verification needed
+**Status**: ✅ Complete  
+**Previous Version**: PyTorch 1.13.1 (vulnerable)  
+**Current Version**: PyTorch 2.9.1 (secure)
 
-PyTorch 1.13.1 has 4 known security vulnerabilities including a **CRITICAL** remote code execution vulnerability. See [SECURITY.md](SECURITY.md) for full details.
+All security vulnerabilities have been addressed by upgrading to PyTorch 2.9.1.
 
-**Before upgrading:**
-1. Verify mmcv 2.x supports PyTorch 2.6+
-2. Check mmpretrain/mmdetection compatibility
-3. Test in isolated environment
-4. Update submodules if needed
+### Submodule Compatibility (NEW PRIORITY)
 
-**Issue Template**: `.github/ISSUE_TEMPLATE/security-pytorch-upgrade.md`
+**Status**: Needs Verification  
+**Priority**: HIGH
+
+The mmpretrain and mmdetection submodules were originally tested with PyTorch 1.x. They may require updates to work with PyTorch 2.9+:
+
+**Action Items:**
+1. Test mmpretrain compatibility with PyTorch 2.9
+2. Test mmdetection compatibility with PyTorch 2.9
+3. Update submodules to newer versions if needed
+4. Document any compatibility issues or workarounds
 
 ---
 

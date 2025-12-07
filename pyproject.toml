@@ -2,16 +2,13 @@
 name = "ml-playground"
 version = "0.1.0"
 description = "ML playground with monorepo setup"
-# Python 3.8-3.10 required for PyTorch 1.13.1 compatibility
-# WARNING: PyTorch 1.13.1 has known security vulnerabilities
-# See SECURITY.md for details. Upgrading to PyTorch 2.6+ may cause
-# compatibility issues with mmpretrain (requires mmcv<2.4.0)
-# and mmdetection (requires mmcv<2.2.0)
-requires-python = ">=3.8,<3.11"
+# Upgraded to PyTorch 2.6.0+ to address critical security vulnerabilities
+# Note: mmpretrain and mmdetection submodules may require updated versions
+# to work with PyTorch 2.6+. Test compatibility before using submodules.
+requires-python = ">=3.9,<3.13"
 dependencies = [
-    "torch==1.13.1",
-    "torchvision==0.14.1",
-    "numpy<2.0",
+    "torch>=2.6.0",
+    "torchvision>=0.19.0",
 ]
 
 [tool.uv]

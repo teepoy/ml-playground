@@ -2,21 +2,16 @@
 
 ML playground with monorepo setup using uv for dependency management.
 
-## ⚠️ Security Notice
+## ✅ Security Status
 
-**This project uses PyTorch 1.13.1 which has known security vulnerabilities.**
+**This project now uses PyTorch 2.9.1** which addresses all previously identified security vulnerabilities.
 
-Please read [SECURITY.md](SECURITY.md) for details about:
-- Known vulnerabilities (heap overflow, use-after-free, RCE via torch.load)
-- Security recommendations
-- Migration path to secure versions
+### Vulnerabilities Fixed:
+- ✅ Heap buffer overflow (was in < 2.2.0, patched in 2.2.0)
+- ✅ Use-after-free (was in < 2.2.0, patched in 2.2.0)
+- ✅ Remote code execution via torch.load (was in < 2.6.0, patched in 2.6.0)
 
-**DO NOT use this configuration in production environments without addressing the security vulnerabilities.**
-
-### Tracking
-
-- 📋 **Issue Template**: See `.github/ISSUE_TEMPLATE/security-pytorch-upgrade.md` to create a tracking issue
-- 📝 **TODO**: See [TODO.md](TODO.md) for upgrade action items and blockers
+**Note**: The project was upgraded from PyTorch 1.13.1 to 2.9.1 to address critical security vulnerabilities. The mmpretrain and mmdetection submodules may require updates to work with PyTorch 2.9+. Please verify compatibility before using the submodules.
 
 ## Setup
 
