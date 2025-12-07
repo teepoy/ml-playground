@@ -5,9 +5,10 @@ This example demonstrates how to use the CocoS3Dataset with PyTorch DataLoader
 for training machine learning models.
 """
 
-from coco_s3_loader import CocoS3Dataset
 from torch.utils.data import DataLoader
 from torchvision import transforms
+
+from coco_s3_loader import CocoS3Dataset
 
 
 def main():

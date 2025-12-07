@@ -13,6 +13,7 @@ import os
 import tempfile
 
 import pytest
+
 from coco_s3_loader.converters import (
     coco_file_to_label_studio_file,
     coco_to_label_studio,
@@ -171,7 +172,7 @@ class TestCocoToLabelStudio:
         # First bbox: [100, 100, 200, 200] on 640x480 image
         result = tasks[0]["annotations"][0]["result"][0]
         value = result["value"]
-        
+
         # Calculate expected values from input data
         bbox = sample_coco_data["annotations"][0]["bbox"]
         img_width = sample_coco_data["images"][0]["width"]
@@ -332,7 +333,7 @@ class TestLabelStudioToCoco:
 
 class TestRoundTripConversion:
     """Test round-trip conversions between formats."""
-    
+
     # Tolerance for floating point comparisons (in pixels)
     BBOX_TOLERANCE = 1.0
 
@@ -355,7 +356,10 @@ class TestRoundTripConversion:
         for i, original_ann in enumerate(sample_coco_data["annotations"]):
             converted_ann = coco_data["annotations"][i]
             for j in range(4):
-                assert abs(original_ann["bbox"][j] - converted_ann["bbox"][j]) < self.BBOX_TOLERANCE
+                assert (
+                    abs(original_ann["bbox"][j] - converted_ann["bbox"][j])
+                    < self.BBOX_TOLERANCE
+                )
 
     def test_label_studio_to_coco_to_label_studio(self, sample_label_studio_tasks):
         """Test round-trip conversion: Label Studio -> COCO -> Label Studio."""

@@ -18,10 +18,11 @@ from unittest.mock import Mock
 import pytest
 import torch
 from botocore.exceptions import ClientError, NoCredentialsError
-from coco_s3_loader import CocoS3Dataset
 from PIL import Image
 from torch.utils.data import DataLoader
 from torchvision import transforms
+
+from coco_s3_loader import CocoS3Dataset
 
 
 # Test fixtures

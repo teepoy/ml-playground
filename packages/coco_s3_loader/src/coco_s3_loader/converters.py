@@ -89,12 +89,16 @@ def coco_to_label_studio(
         task = {
             "id": image_id,
             "data": {"image": image_url},
-            "annotations": [
-                {
-                    "id": f"annotation_{image_id}",
-                    "result": results,
-                }
-            ] if results else [],
+            "annotations": (
+                [
+                    {
+                        "id": f"annotation_{image_id}",
+                        "result": results,
+                    }
+                ]
+                if results
+                else []
+            ),
         }
 
         # Add optional project field
