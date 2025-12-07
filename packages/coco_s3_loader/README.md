@@ -1,6 +1,6 @@
 # COCO S3 Loader
 
-A PyTorch-compatible dataloader for loading COCO image datasets from JSON annotation files with S3 URLs as image paths.
+A PyTorch-compatible dataloader for loading COCO image datasets from JSON annotation files with S3 URLs as image paths. Also includes converters between COCO format and Label Studio JSON format.
 
 ## Features
 
@@ -8,6 +8,7 @@ A PyTorch-compatible dataloader for loading COCO image datasets from JSON annota
 - **Error Handling**: Gracefully handle inaccessible S3 URLs with configurable behavior
 - **Transformations**: Apply PyTorch transforms to images during loading
 - **Batching**: Full support for PyTorch DataLoader batching
+- **Format Converters**: Convert between COCO and Label Studio JSON formats
 - **Type Safety**: Comprehensive type hints for better IDE support
 - **Well Documented**: Detailed docstrings and examples
 
@@ -112,6 +113,65 @@ The loader uses boto3, which automatically uses AWS credentials from:
 - Environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`)
 - AWS credentials file (`~/.aws/credentials`)
 - IAM roles (when running on EC2/ECS)
+
+## Format Converters
+
+The package includes converters to convert between COCO format and Label Studio JSON format for object detection annotations.
+
+### Convert COCO to Label Studio
+
+```python
+from coco_s3_loader import coco_to_label_studio, coco_file_to_label_studio_file
+
+# Convert from dictionary
+coco_data = {
+    "images": [...],
+    "annotations": [...],
+    "categories": [...]
+}
+tasks = coco_to_label_studio(coco_data, project_id=42)
+
+# Or convert files directly
+coco_file_to_label_studio_file(
+    "coco_annotations.json",
+    "label_studio_tasks.json",
+    project_id=42
+)
+```
+
+### Convert Label Studio to COCO
+
+```python
+from coco_s3_loader import label_studio_to_coco, label_studio_file_to_coco_file
+
+# Convert from list of tasks
+tasks = [...]  # Label Studio tasks
+coco_data = label_studio_to_coco(tasks, categories=["person", "car"])
+
+# Or convert files directly
+label_studio_file_to_coco_file(
+    "label_studio_tasks.json",
+    "coco_annotations.json",
+    categories=["person", "car"]  # Optional
+)
+```
+
+### Format Details
+
+**COCO Format:**
+- Images with S3 URLs in `file_name` field
+- Bounding boxes in `[x, y, width, height]` format (pixels)
+- Categories with `id`, `name`, and `supercategory`
+
+**Label Studio Format:**
+- Tasks with `data.image` containing the image URL
+- Annotations with `result` array of rectanglelabels
+- Bounding boxes in percentage coordinates (0-100)
+- Labels in `rectanglelabels` array
+
+**Coordinate Conversion:**
+- COCO → Label Studio: Converts absolute pixel coordinates to percentages
+- Label Studio → COCO: Converts percentages back to pixel coordinates using `original_width` and `original_height`
 
 ## API Reference
 
