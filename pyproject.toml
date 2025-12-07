@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [tool.uv]
-environments = ["sys_platform == 'linux'"]
+environments = ["sys_platform == 'linux' or sys_platform == 'darwin'"]
 
 [tool.uv.workspace]
 members = [
@@ -21,6 +21,7 @@ members = [
     "packages/playground",
     "packages/self-sup-learning",
     "packages/visualization",
+    "packages/image-alignment-component",
 ]
 
 [[tool.uv.index]]
