@@ -1,0 +1,12 @@
+[project]
+name = "ml-playground"
+version = "0.1.0"
+description = "ML playground with monorepo setup"
+requires-python = ">=3.8,<3.11"
+dependencies = [
+    "torch==1.13.1",
+    "torchvision==0.14.1",
+]
+
+[tool.uv]
+environments = ["sys_platform == 'linux'"]

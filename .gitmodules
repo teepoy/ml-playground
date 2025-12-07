@@ -1,0 +1,6 @@
+[submodule "packages/mmpretrain"]
+	path = packages/mmpretrain
+	url = https://github.com/teepoy/mmpretrain.git
+[submodule "packages/mmdetection"]
+	path = packages/mmdetection
+	url = https://github.com/teepoy/mmdetection.git
