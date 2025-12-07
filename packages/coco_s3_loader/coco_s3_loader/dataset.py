@@ -69,7 +69,8 @@ class CocoS3Dataset(Dataset):
             annotation_file: Path to COCO JSON annotation file
             transform: Optional callable transform to apply to images
             handle_errors: How to handle image load errors:
-                - 'skip': Skip failed images (excluded from dataset)
+                - 'skip': Return None for failed images (same as 'return_none').
+                         These should be filtered out when processing batches.
                 - 'raise': Raise exception on load failure
                 - 'return_none': Return None for failed images
             s3_client: Optional pre-configured boto3 S3 client. If None,
@@ -109,8 +110,8 @@ class CocoS3Dataset(Dataset):
                 self.annotations_by_image[image_id] = []
             self.annotations_by_image[image_id].append(ann)
         
-        # For 'skip' mode, we'll track valid indices
-        # For other modes, all indices are considered valid initially
+        # Track all indices as valid - images are loaded lazily on access
+        # Failed loads will return None in 'skip' and 'return_none' modes
         self.valid_indices = list(range(len(self.images)))
         
         logger.info(

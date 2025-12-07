@@ -51,9 +51,17 @@ dataloader = DataLoader(
 
 # Iterate through batches
 for batch in dataloader:
-    images, annotations = batch
-    # Your training code here
-    pass
+    # batch is a list of (image, annotation) tuples
+    # Filter out None values if using 'skip' or 'return_none' modes
+    valid_samples = [sample for sample in batch if sample is not None]
+    
+    if not valid_samples:
+        continue  # Skip empty batches
+    
+    # Process valid samples
+    for image, annotation in valid_samples:
+        # Your training code here
+        pass
 ```
 
 ### COCO JSON Format
@@ -92,9 +100,11 @@ The loader expects COCO-format JSON with S3 URLs in the image paths:
 
 ### Error Handling Options
 
-- **`skip`**: Skip images that fail to load (default)
-- **`raise`**: Raise an exception on load failure
+- **`skip`**: Return None for failed images (same as `return_none`). Filter these out when processing batches.
+- **`raise`**: Raise an exception on load failure. Use for strict validation.
 - **`return_none`**: Return None for failed images (useful for debugging)
+
+**Note**: Images are loaded lazily on access. The `skip` and `return_none` modes behave identically by returning None for failed loads. You should filter out None values when processing batches.
 
 ### AWS Credentials
 
