@@ -2,6 +2,10 @@
 name = "coco-s3-loader"
 version = "0.1.0"
 description = "PyTorch-compatible dataloader for COCO dataset with S3 URL support"
+readme = "README.md"
+authors = [
+    { name = "copilot-swe-agent[bot]", email = "198982749+Copilot@users.noreply.github.com" }
+]
 requires-python = ">=3.9,<3.13"
 dependencies = [
     "torch>=2.6.0",
@@ -27,3 +31,7 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
+
+[build-system]
+requires = ["uv_build>=0.9.16,<0.10.0"]
+build-backend = "uv_build"

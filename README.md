@@ -85,9 +85,9 @@ A PyTorch-compatible dataloader for loading COCO datasets with S3 URLs as image 
 
 **Quick Start:**
 ```bash
-cd packages/coco_s3_loader
-uv sync
-uv run pytest  # Run tests
+# From root directory (workspace setup)
+uv sync --all-packages
+uv run pytest packages/coco_s3_loader/tests/  # Run tests
 ```
 
 See [packages/coco_s3_loader/README.md](packages/coco_s3_loader/README.md) for detailed documentation.
