@@ -171,12 +171,21 @@ class TestCocoToLabelStudio:
         # First bbox: [100, 100, 200, 200] on 640x480 image
         result = tasks[0]["annotations"][0]["result"][0]
         value = result["value"]
+        
+        # Calculate expected values from input data
+        bbox = sample_coco_data["annotations"][0]["bbox"]
+        img_width = sample_coco_data["images"][0]["width"]
+        img_height = sample_coco_data["images"][0]["height"]
+        expected_x = (bbox[0] / img_width) * 100
+        expected_y = (bbox[1] / img_height) * 100
+        expected_width = (bbox[2] / img_width) * 100
+        expected_height = (bbox[3] / img_height) * 100
 
-        # Expected: x=100/640*100=15.625, y=100/480*100≈20.833
-        assert abs(value["x"] - 15.625) < 0.001
-        assert abs(value["y"] - 20.833333333333336) < 0.001
-        assert abs(value["width"] - 31.25) < 0.001
-        assert abs(value["height"] - 41.666666666666664) < 0.001
+        # Verify conversion accuracy
+        assert abs(value["x"] - expected_x) < 0.001
+        assert abs(value["y"] - expected_y) < 0.001
+        assert abs(value["width"] - expected_width) < 0.001
+        assert abs(value["height"] - expected_height) < 0.001
 
     def test_category_labels(self, sample_coco_data):
         """Test that category labels are correctly mapped."""
@@ -323,6 +332,9 @@ class TestLabelStudioToCoco:
 
 class TestRoundTripConversion:
     """Test round-trip conversions between formats."""
+    
+    # Tolerance for floating point comparisons (in pixels)
+    BBOX_TOLERANCE = 1.0
 
     def test_coco_to_label_studio_to_coco(self, sample_coco_data):
         """Test round-trip conversion: COCO -> Label Studio -> COCO."""
@@ -343,7 +355,7 @@ class TestRoundTripConversion:
         for i, original_ann in enumerate(sample_coco_data["annotations"]):
             converted_ann = coco_data["annotations"][i]
             for j in range(4):
-                assert abs(original_ann["bbox"][j] - converted_ann["bbox"][j]) < 1
+                assert abs(original_ann["bbox"][j] - converted_ann["bbox"][j]) < self.BBOX_TOLERANCE
 
     def test_label_studio_to_coco_to_label_studio(self, sample_label_studio_tasks):
         """Test round-trip conversion: Label Studio -> COCO -> Label Studio."""

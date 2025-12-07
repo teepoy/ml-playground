@@ -31,7 +31,8 @@ def coco_to_label_studio(
         ... }
         >>> tasks = coco_to_label_studio(coco_data)
     """
-    # Build category lookup
+    # Build category lookup: maps category ID to category name
+    # e.g., {1: "person", 2: "car"}
     categories = {cat["id"]: cat["name"] for cat in coco_data.get("categories", [])}
 
     # Group annotations by image_id
@@ -57,10 +58,12 @@ def coco_to_label_studio(
             x, y, w, h = ann["bbox"]
 
             # Convert to Label Studio format (percentages)
-            x_percent = (x / width * 100) if width > 0 else 0
-            y_percent = (y / height * 100) if height > 0 else 0
-            width_percent = (w / width * 100) if width > 0 else 0
-            height_percent = (h / height * 100) if height > 0 else 0
+            # Handle zero dimensions to avoid division by zero
+            has_valid_dimensions = width > 0 and height > 0
+            x_percent = (x / width * 100) if has_valid_dimensions else 0
+            y_percent = (y / height * 100) if has_valid_dimensions else 0
+            width_percent = (w / width * 100) if has_valid_dimensions else 0
+            height_percent = (h / height * 100) if has_valid_dimensions else 0
 
             category_name = categories.get(ann["category_id"], "unknown")
 
