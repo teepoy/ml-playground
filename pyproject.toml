@@ -13,3 +13,6 @@ dependencies = [
 
 [tool.uv]
 environments = ["sys_platform == 'linux'"]
+
+[tool.uv.workspace]
+members = ["packages/coco_s3_loader"]

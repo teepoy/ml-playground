@@ -56,6 +56,7 @@ uv run python main.py
 ```
 ml-playground/
 ├── packages/
+│   ├── coco_s3_loader/  # PyTorch COCO dataloader with S3 support
 │   ├── mmpretrain/      # MMPretrain submodule
 │   └── mmdetection/     # MMDetection submodule
 ├── pyproject.toml       # Project configuration and dependencies
@@ -68,6 +69,28 @@ ml-playground/
 - PyTorch 1.13.1
 - torchvision 0.14.1
 - Additional packages: see pyproject.toml
+
+## Packages
+
+### COCO S3 Loader
+
+A PyTorch-compatible dataloader for loading COCO datasets with S3 URLs as image paths.
+
+**Features:**
+- Load images directly from S3 URLs in COCO JSON annotations
+- Error handling for inaccessible S3 URLs (skip, raise, or return None)
+- Support for PyTorch transforms
+- Full DataLoader batching support
+- Comprehensive test coverage
+
+**Quick Start:**
+```bash
+# From root directory (workspace setup)
+uv sync --all-packages
+uv run pytest packages/coco_s3_loader/tests/  # Run tests
+```
+
+See [packages/coco_s3_loader/README.md](packages/coco_s3_loader/README.md) for detailed documentation.
 
 ## Submodules
 
