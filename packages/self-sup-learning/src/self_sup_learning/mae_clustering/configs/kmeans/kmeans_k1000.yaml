@@ -1,0 +1,19 @@
+# @package _global_
+defaults:
+  - /base_config
+  - _self_
+
+methods:
+  kmeans:
+    enabled: true
+    n_clusters: [1000]
+    metric: "euclidean"
+    random_state: 42
+    max_iter: 300
+    n_init: 10
+
+  vbgmm:
+    enabled: false
+
+  hdbscan:
+    enabled: false

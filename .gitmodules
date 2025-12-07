@@ -4,3 +4,6 @@
 [submodule "packages/mmdetection"]
 	path = packages/mmdetection
 	url = https://github.com/teepoy/mmdetection.git
+[submodule "packages/JiT"]
+	path = packages/JiT
+	url = https://github.com/LTH14/JiT.git

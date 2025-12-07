@@ -1,0 +1,65 @@
+# Clustering Configuration
+defaults:
+  - _self_
+
+# Database settings
+database:
+  path: "/home/jin/Desktop/mm/lancedb"
+  table_name: "imagenet_mae_embeddings"
+
+# Output settings
+output:
+  results_dir: "./clustering_results"
+  save_predictions: true
+  save_metrics: true
+  save_visualizations: true
+
+# Clustering methods to run
+methods:
+  kmeans:
+    enabled: true
+    n_clusters: [500, 1000, 1500, 2000]
+    metric: "euclidean"  # "euclidean" or "cosine"
+    random_state: 42
+    max_iter: 300
+    n_init: 10
+
+  vbgmm:
+    enabled: true
+    n_components: [500, 1000, 1500, 2000]  # Higher values to match ImageNet classes
+    random_state: 42
+    covariance_type: "diag"  # Options: "full", "tied", "diag", "spherical"
+    max_iter: 200
+    n_init: 1
+    weight_concentration_prior: 0.001  # Small value encourages fewer components
+
+  hdbscan:
+    enabled: true
+    min_cluster_size: [200, 500]  # Larger values for high-dim data
+    min_samples: [20, 50]
+    metric: "euclidean"  # "euclidean" or "cosine"
+    cluster_selection_epsilon: 0.0
+    cluster_selection_method: "eom"  # "eom" or "leaf"
+
+# Evaluation settings
+evaluation:
+  # Use true labels from ImageNet for evaluation
+  use_true_labels: true
+  metrics:
+    - "silhouette"
+    - "calinski_harabasz"
+    - "davies_bouldin"
+    - "adjusted_rand_index"  # Only if true labels available
+    - "normalized_mutual_info"  # Only if true labels available
+    - "v_measure"  # Only if true labels available
+
+# Visualization settings
+visualization:
+  enabled: true
+  method: "umap"  # Options: "umap", "tsne", "pca"
+  n_components: 2
+  save_plots: true
+  max_samples_plot: 5000  # Subsample for visualization to speed up
+
+# Random seed for reproducibility
+seed: 42

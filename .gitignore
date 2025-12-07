@@ -182,9 +182,9 @@ cython_debug/
 .abstra/
 
 # Visual Studio Code
-#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#  Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore
 #  that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
-#  and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#  and can be added to the global gitignore or merged into this file. However, if you prefer,
 #  you could uncomment the following to ignore the entire vscode folder
 # .vscode/
 
@@ -205,3 +205,78 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+legacy
+data
+packages/playground
+
+# Self-sup-learning specific
+packages/self-sup-learning/**/*.csv
+packages/self-sup-learning/**/*.txt
+packages/self-sup-learning/**/*.png
+packages/self-sup-learning/**/*.jpg
+packages/self-sup-learning/**/*.jpeg
+packages/self-sup-learning/**/*.npy
+packages/self-sup-learning/**/*.npz
+packages/self-sup-learning/**/*.json
+packages/self-sup-learning/**/*.pth
+packages/self-sup-learning/**/*.pt
+packages/self-sup-learning/**/*.bin
+packages/self-sup-learning/**/*.safetensors
+packages/self-sup-learning/**/*.onnx
+packages/self-sup-learning/**/*.joblib
+packages/self-sup-learning/**/*.pkl
+packages/self-sup-learning/**/*.pickle
+
+# Large files in general
+*.bin
+*.bz2
+*.dmg
+*.gz
+*.iso
+*.img
+*.jar
+*.rar
+*.safetensors
+*.tar
+*.tar.gz
+*.tar.bz2
+*.whl
+*.zip
+*.7z
+
+# Model files
+*.pth
+*.pt
+*.ckpt
+*.model
+*.h5
+*.pb
+*.tflite
+
+# Data files
+*.csv
+*.tsv
+*.parquet
+*.hdf5
+*.h5
+*.npz
+*.npy
+
+# Images (if they are large)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.webp
+
+# Other large files
+*.log
+*.sqlite
+*.db
+
+# Large outputs
+outputs/
+results/
+work_dirs/

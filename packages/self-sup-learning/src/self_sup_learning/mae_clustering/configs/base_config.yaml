@@ -1,0 +1,36 @@
+# Base Configuration (shared across all clustering runs)
+# @package _global_
+
+# Database settings
+database:
+  path: "/home/jin/Desktop/mm/lancedb"
+  table_name: "imagenet_mae_embeddings"
+
+# Output settings
+output:
+  results_dir: "./clustering_results"
+  save_predictions: true
+  save_metrics: true
+  save_visualizations: true
+
+# Evaluation settings
+evaluation:
+  use_true_labels: true
+  metrics:
+    - "silhouette"
+    - "calinski_harabasz"
+    - "davies_bouldin"
+    - "adjusted_rand_index"
+    - "normalized_mutual_info"
+    - "v_measure"
+
+# Visualization settings
+visualization:
+  enabled: true
+  method: "umap"
+  n_components: 2
+  save_plots: true
+  max_samples_plot: 5000
+
+# Random seed for reproducibility
+seed: 42

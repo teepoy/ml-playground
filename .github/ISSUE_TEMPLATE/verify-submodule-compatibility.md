@@ -32,7 +32,7 @@ These submodules were originally designed for PyTorch 1.x and need compatibility
   - [ ] Run basic import tests
   - [ ] Test with sample models
   - [ ] Document any errors or issues
-  
+
 - [ ] **Test mmdetection** with PyTorch 2.9.1
   - [ ] Install required dependencies (mmcv, mmengine)
   - [ ] Run basic import tests
@@ -72,8 +72,8 @@ These submodules were originally designed for PyTorch 1.x and need compatibility
 
 ### Expected Outcomes
 
-✅ **Best case**: Submodules work with PyTorch 2.9 without modification  
-⚠️ **Likely case**: Need to update submodules to newer versions  
+✅ **Best case**: Submodules work with PyTorch 2.9 without modification
+⚠️ **Likely case**: Need to update submodules to newer versions
 ❌ **Worst case**: Need to pin specific mmcv/mmengine versions and document limitations
 
 ### References

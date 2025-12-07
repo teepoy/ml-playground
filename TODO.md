@@ -4,15 +4,15 @@
 
 ### PyTorch Upgrade (COMPLETED)
 
-**Status**: ✅ Complete  
-**Previous Version**: PyTorch 1.13.1 (vulnerable)  
+**Status**: ✅ Complete
+**Previous Version**: PyTorch 1.13.1 (vulnerable)
 **Current Version**: PyTorch 2.9.1 (secure)
 
 All security vulnerabilities have been addressed by upgrading to PyTorch 2.9.1.
 
 ### Submodule Compatibility (NEW PRIORITY)
 
-**Status**: Needs Verification  
+**Status**: Needs Verification
 **Priority**: HIGH
 
 The mmpretrain and mmdetection submodules were originally tested with PyTorch 1.x. They may require updates to work with PyTorch 2.9+:

@@ -54,10 +54,10 @@ for batch in dataloader:
     # batch is a list of (image, annotation) tuples
     # Filter out None values if using 'skip' or 'return_none' modes
     valid_samples = [sample for sample in batch if sample is not None]
-    
+
     if not valid_samples:
         continue  # Skip empty batches
-    
+
     # Process valid samples
     for image, annotation in valid_samples:
         # Your training code here

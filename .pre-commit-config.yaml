@@ -1,0 +1,54 @@
+# Pre-commit configuration for ml-playground project
+repos:
+  # Built-in hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.(png|jpg|jpeg|gif|svg|pyc|so)$
+      - id: end-of-file-fixer
+        exclude: \.(png|jpg|jpeg|gif|svg|pyc|so)$
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+        args: ["--maxkb=500"] # Prevent files larger than 500KB
+      - id: check-case-conflict
+      - id: check-merge-conflict
+
+  # Python formatting
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+        language_version: python3
+
+  # Python import sorting
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: ["--profile", "black", "--filter-files"]
+
+  # Python linting
+  # - repo: https://github.com/charliermarsh/ruff-pre-commit
+  #   rev: v0.9.10
+  #   hooks:
+  #     - id: ruff
+  #       args: [--fix, --exit-non-zero-on-fix]
+  #       types_or: [python, pyi]
+
+  # Check for secrets (commented out due to baseline file not existing yet)
+  # - repo: https://github.com/Yelp/detect-secrets
+  #   rev: v1.5.0
+  #   hooks:
+  #     - id: detect-secrets
+  #       args: ['--baseline', '.secrets.baseline']
+
+  # Python type checking (optional)
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.13.0
+  #   hooks:
+  #     - id: mypy
+  #       additional_dependencies: [tokenize-rt==3.2.0]
+  #       exclude: ^legacy/

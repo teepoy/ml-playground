@@ -27,7 +27,7 @@ The project was originally set up with PyTorch 1.13.1 which had several known se
 - **Affected versions**: < 2.6.0
 - **Patched version**: 2.6.0
 - **Description**: `torch.load` with `weights_only=True` can still lead to remote code execution when loading untrusted model files.
-- **Mitigation**: 
+- **Mitigation**:
   - Upgrade to PyTorch 2.6.0 or later
   - **NEVER load untrusted model files with PyTorch 1.13.1**
   - Only load models from trusted sources
@@ -78,9 +78,9 @@ When ready to upgrade to a secure version:
 
 1. **Check submodule compatibility**: Verify that mmpretrain and mmdetection work with PyTorch 2.6+
    - Current mmpretrain requires `mmcv<2.4.0`
-   - Current mmdetection requires `mmcv<2.2.0`  
+   - Current mmdetection requires `mmcv<2.2.0`
    - Check if newer versions of these packages support PyTorch 2.6+
-   
+
 2. **Update submodules** (if needed):
    ```bash
    cd packages/mmpretrain && git pull origin main

@@ -1,0 +1,20 @@
+# @package _global_
+defaults:
+  - /base_config
+  - _self_
+
+methods:
+  kmeans:
+    enabled: false
+
+  vbgmm:
+    enabled: true
+    n_components: [1000]
+    random_state: 42
+    covariance_type: "diag"
+    max_iter: 200
+    n_init: 1
+    weight_concentration_prior: 0.001
+
+  hdbscan:
+    enabled: false

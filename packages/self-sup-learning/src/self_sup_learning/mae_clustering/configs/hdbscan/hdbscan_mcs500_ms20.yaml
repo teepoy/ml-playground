@@ -1,0 +1,18 @@
+# @package _global_
+defaults:
+  - /base_config
+  - _self_
+
+methods:
+  kmeans:
+    enabled: false
+
+  vbgmm:
+    enabled: false
+
+  hdbscan:
+    enabled: true
+    min_cluster_size: [500]
+    min_samples: [20]
+    cluster_selection_epsilon: 0.0
+    cluster_selection_method: "eom"
