@@ -3,16 +3,31 @@
 Analysis and comparison of DINO vs VAE clustering results
 """
 
+import os
+
+import matplotlib
+
+try:
+    matplotlib.use("Agg")  # Use non-interactive backend before importing pyplot
+except:
+    # If setting backend fails, continue with default
+    pass
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
 
-def analyze_dino_results():
+def analyze_dino_results(dino_results_file="dino_clustering_results.csv"):
     """Analyze the DINO clustering results"""
 
+    # Check if required file exists
+    if not os.path.exists(dino_results_file):
+        print(f"Error: {dino_results_file} not found in current directory.")
+        print("Please ensure the file exists before running this script.")
+        return None
+
     # Load DINO results
-    dino_results = pd.read_csv("dino_clustering_results.csv")
+    dino_results = pd.read_csv(dino_results_file)
 
     print("DINO Clustering Analysis")
     print("=" * 60)
@@ -23,6 +38,11 @@ def analyze_dino_results():
 
     print(f"DINO Training set results: {len(train_results)} configurations")
     print(f"DINO Test set results: {len(test_results)} configurations")
+
+    # Check if there are any results to analyze
+    if len(train_results) == 0 and len(test_results) == 0:
+        print("Warning: No training or test results found in the data.")
+        return dino_results
 
     # Find best results for each method and dataset
     methods = ["KMeans", "Spectral", "HDBSCAN"]
@@ -46,14 +66,24 @@ def analyze_dino_results():
                     f"ARI={best_result['ari']:.4f}, "
                     f"NMI={best_result['nmi']:.4f}"
                 )
+            else:
+                print(f"  {method:12}: No results found")
 
     # Compare training vs test performance
     print("\nCOMPARISON: DINO Training vs Test Set Performance")
     print("-" * 50)
 
     for method in methods:
-        train_best = train_results[train_results["method"] == method]["v_measure"].max()
-        test_best = test_results[test_results["method"] == method]["v_measure"].max()
+        train_best = (
+            train_results[train_results["method"] == method]["v_measure"].max()
+            if len(train_results[train_results["method"] == method]) > 0
+            else 0
+        )
+        test_best = (
+            test_results[test_results["method"] == method]["v_measure"].max()
+            if len(test_results[test_results["method"] == method]) > 0
+            else 0
+        )
         print(
             f"{method:12}: Train V-Measure={train_best:.4f}, Test V-Measure={test_best:.4f}"
         )
@@ -61,12 +91,26 @@ def analyze_dino_results():
     return dino_results
 
 
-def compare_with_vae():
+def compare_with_vae(
+    dino_results_file="dino_clustering_results.csv",
+    vae_results_file="imagenet_clustering_results.csv",
+):
     """Compare DINO results with VAE results"""
 
+    # Check if required files exist
+    if not os.path.exists(dino_results_file):
+        print(f"Error: {dino_results_file} not found in current directory.")
+        print("Please ensure the file exists before running this script.")
+        return None
+
+    if not os.path.exists(vae_results_file):
+        print(f"Error: {vae_results_file} not found in current directory.")
+        print("Please ensure the file exists before running this script.")
+        return None
+
     # Load both result sets
-    dino_results = pd.read_csv("dino_clustering_results.csv")
-    vae_results = pd.read_csv("imagenet_clustering_results.csv")
+    dino_results = pd.read_csv(dino_results_file)
+    vae_results = pd.read_csv(vae_results_file)
 
     print("\n" + "=" * 80)
     print("COMPREHENSIVE COMPARISON: DINO vs VAE (ImageNet Subset)")
@@ -241,7 +285,15 @@ def compare_with_vae():
 
     plt.tight_layout()
     plt.savefig("dino_vae_comparison.png", dpi=150, bbox_inches="tight")
-    plt.show()
+
+    # Try to show the plot, but don't fail if in a headless environment
+    try:
+        plt.show()
+    except Exception as e:
+        print(f"Could not display plot (headless environment?): {e}")
+        print("Plot saved to 'dino_vae_comparison.png'")
+
+    plt.close()  # Close the figure to free memory
 
     print("\nDINO significantly outperforms VAE on the ImageNet subset:")
     print("- DINO achieves V-Measure scores of ~0.8-0.95 compared to VAE's ~0.16")
@@ -254,13 +306,32 @@ def compare_with_vae():
 
 
 def main():
-    print("Analyzing DINO clustering results...")
-    dino_results = analyze_dino_results()
+    import sys
 
-    print("\nComparing with VAE results...")
-    comparison_df = compare_with_vae()
+    # Default file paths
+    dino_file = "dino_clustering_results.csv"
+    vae_file = "imagenet_clustering_results.csv"
 
-    print("\nAnalysis complete! Check the generated comparison plot.")
+    # Allow command line arguments to override default file paths
+    if len(sys.argv) > 1:
+        dino_file = sys.argv[1]
+    if len(sys.argv) > 2:
+        vae_file = sys.argv[2]
+
+    print(f"Analyzing DINO clustering results from {dino_file}...")
+    dino_results = analyze_dino_results(dino_file)
+
+    if dino_results is None:
+        print("Analysis stopped due to missing data files.")
+        return
+
+    print(f"\nComparing with VAE results from {vae_file}...")
+    comparison_df = compare_with_vae(dino_file, vae_file)
+
+    if comparison_df is not None:
+        print("\nAnalysis complete! Check the generated comparison plot.")
+    else:
+        print("Comparison with VAE skipped due to missing data files.")
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@ members = [
     "packages/self-sup-learning",
     "packages/visualization",
     "packages/image-alignment-component",
+    "packages/alignment-methods",
 ]
 
 [[tool.uv.index]]
@@ -29,5 +30,8 @@ url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
 
 [dependency-groups]
 dev = [
+    "black>=25.11.0",
+    "jupyter>=1.1.1",
     "pre-commit>=4.5.0",
+    "pytest>=9.0.2",
 ]

@@ -4,6 +4,8 @@ Script to extract features from pretrained DINOv2 model and perform clustering
 """
 
 
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import torch
@@ -22,6 +24,41 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision.datasets import ImageFolder
 
 
+def get_project_root():
+    """Find the project root directory by looking for the main project markers."""
+    current_path = Path(__file__).resolve()
+    # Start from current directory and go up the hierarchy
+    for parent in current_path.parents:
+        # Check for the main project root which has both .git and packages directory
+        if (parent / ".git").exists() and (parent / "packages").exists():
+            return parent
+    # If no main project markers found, return the directory containing the project structure we expect
+    return (
+        current_path.parent.parent.parent.parent.parent
+    )  # fallback to previous method
+
+
+def get_dino_paths():
+    """Get the DINO config and checkpoint paths relative to project root."""
+    project_root = get_project_root()
+    config_path = (
+        project_root
+        / "packages"
+        / "mmpretrain"
+        / "configs"
+        / "dinov2"
+        / "vit-base-p14_dinov2-pre_headless.py"
+    )
+    checkpoint_path = (
+        project_root
+        / "packages"
+        / "mmpretrain"
+        / "pretrained"
+        / "vit-base-p14_dinov2-pre_3rdparty_20230426-ba246503.pth"
+    )
+    return str(config_path), str(checkpoint_path)
+
+
 class ImageNetSubsetDataset(Dataset):
     def __init__(self, root_dir, transform=None):
         self.dataset = ImageFolder(root_dir, transform=transform)
@@ -34,10 +71,12 @@ class ImageNetSubsetDataset(Dataset):
         return image, label
 
 
-def load_dino_model(checkpoint_path):
-    """Load the pretrained DINOv2 model"""
+def load_dino_model():
+    """Load the pretrained DINOv2 model using relative paths from project root"""
+    # Get the DINO paths
+    config_path, checkpoint_path = get_dino_paths()
+
     # Load the configuration
-    config_path = "/home/jin/Desktop/mm/mmpretrain/configs/dinov2/vit-base-p14_dinov2-pre_headless.py"
     cfg = Config.fromfile(config_path)
 
     # Build the model
@@ -229,8 +268,7 @@ def main():
     print(f"Using device: {device}")
 
     # Load the DINO model
-    checkpoint_path = "/home/jin/Desktop/mm/pretrained/vit-base-p14_dinov2-pre_3rdparty_20230426-ba246503.pth"
-    model = load_dino_model(checkpoint_path)
+    model = load_dino_model()
     model = model.to(device)
 
     # Define transforms for DINO (based on the config)
